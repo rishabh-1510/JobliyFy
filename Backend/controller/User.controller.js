@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
+import getDataUri from "../utils/datauri.js";
 dotenv.config()
 export const register =async(req,res)=>{
     try{
@@ -66,6 +67,7 @@ export const login = async(req,res)=>{
             })
         }
         const tokenData  = {
+
             userId:user._id,
             role:role
         }
@@ -75,7 +77,7 @@ export const login = async(req,res)=>{
             _id:user._id,
             fullName:user.fullName,
             email:user.email,
-            phoneNumber:user.phoneNumber,
+            phoneNumber:user.mobileNumber,
             role:user.role,
             profile:user.profile
         }

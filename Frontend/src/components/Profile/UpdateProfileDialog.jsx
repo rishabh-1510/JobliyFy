@@ -1,3 +1,4 @@
+//7:35
 import React, { useState } from 'react'
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '../ui/dialog'
 import { Label } from '../ui/label'
@@ -8,13 +9,14 @@ import axios from "axios"
 import {USER_API_ENDPOINT} from '../../utils/api'
 import { setUser } from '../../redux/authSlice'
 import { toast } from 'sonner'
+import { Loader2 } from 'lucide-react'
 
 const UpdateProfileDialog = ({ open, setOpen }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const {user} = useSelector(store=>store.auth)
   const[input , setInput]=useState({
-    fullname:user?.fullname || "",
+    fullname:user?.fullName || "",
     email:user?.email || "",
     phoneNumber:user?.phoneNumber || "",
     bio:user?.profile?.bio || "",
@@ -37,6 +39,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     }
 
     try{
+      setLoading(true)
       const res = await axios.post(`${USER_API_ENDPOINT}/profile/update`,formData,{
         headers:{
           'Content-Type':'multipart/form-data'
@@ -50,15 +53,16 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     }catch(err){
       console.log(err);
       toast.error(err.response.data.message)
+    }finally{
+      setLoading(false);
     }
     setOpen(false); 
-
-
   }
   const fileChangeHandler = (e)=>{
     const file = e.target.files?.[0];
     setInput({...input,file})
   } 
+  console.log(input)
   return (
     <Dialog open={open}>
       <DialogContent className={'sm:max-w-[425px] '} onInteractOutside={() => setOpen(false)}>

@@ -1,13 +1,21 @@
 import User from '../models/user.model.js';
+import cloudinary from '../utils/cloudinary.js';
+import getDataUri from '../utils/datauri.js';
 
 export const updateProfile=async(req,res)=>{
     try{
         const{fullName , email , mobileNumber ,bio="" ,skills ="" } = req.body;
         const file  = req.file;
         const userId = req.id;
-
         //cloudinary
-        
+        if(file){
+            const fileUri = getDataUri(file);
+            var cloudResponse = await cloudinary.uploader.upload(fileUri.content,{
+                 resource_type: "raw",
+            });
+        }
+
+        console.log("FILE:", req.file);
         const skillsArray = skills.split(",");
         let user = await User.findById(userId);
         if(!user){
@@ -28,6 +36,11 @@ export const updateProfile=async(req,res)=>{
             user.profile.bio = bio;
         if(skills)
             user.profile.skills =skillsArray
+        if(cloudResponse){
+            
+            user.profile.resume = cloudResponse.secure_url + "#view=FitH";
+            user.profile.resumeOriginalName = file?.originalname
+        }
 
         await user.save();
 

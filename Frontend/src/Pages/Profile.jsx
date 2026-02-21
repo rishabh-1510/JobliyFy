@@ -17,6 +17,7 @@ const Profile = () => {
     const {user} = useSelector((store)=>store.auth)
     const [open , setOpen] = useState(false)
     const [isHaveResume, setIsHaveResume] = useState(true)
+    console.log(user);
     return (
         <div>
             <Navbar />
@@ -28,7 +29,7 @@ const Profile = () => {
                             <AvatarImage src="https://img.freepik.com/premium-vector/company-logo-design-any-corporate-brand-suitable-your-business-company-etc_1300464-373.jpg?w=2000" />
                         </Avatar>
                         <div>
-                            <h1 className='font-medium text-xl'>{user.fullName}</h1>
+                            <h1 className='font-medium text-xl'>{user?.fullName}</h1>
                             <p>{user?.profile?.bio}</p>
                         </div>
                     </div>
@@ -39,12 +40,12 @@ const Profile = () => {
                 <div className='my-5'>
                     <div className='flex gap-3 items-center my-2'>
                         <Mail />
-                        <span>{user.email}</span>
+                        <span>{user?.email}</span>
 
                     </div>
                     <div className='flex items-center gap-3 my-2'>
                         <Contact />
-                        <span>{user.mobileNumber}</span>
+                        <span>{user?.phoneNumber}</span>
 
                     </div>
                 </div>
@@ -59,7 +60,7 @@ const Profile = () => {
                 <div className='grid w-full max-w-sm items-center gsp-1.5'>
                     <Label className={'text-md font-bold'}>Resume</Label>
                     {
-                        isHaveResume ? (<a target='blank' href='https://youtube.com' className='text-blue-500 w-full hover:underline'>Click to view Resume</a>) : (<span>N/A</span>)
+                        isHaveResume ? (<a target='blank' href={`${user?.profile?.resume}`} className='text-blue-500 w-full hover:underline'>{user?.profile?.resumeOriginalName}</a>) : (<span>N/A</span>)
                     }
                 </div>
             </div>
