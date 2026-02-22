@@ -1,4 +1,4 @@
-//7:16
+//7:45
 
 import React, { useState } from 'react'
 import Navbar from '../components/shared/Navbar'
@@ -26,7 +26,7 @@ const Profile = () => {
 
                     <div className='flex items-center gap-4'>
                         <Avatar className={"h-24 w-24"}>
-                            <AvatarImage src="https://img.freepik.com/premium-vector/company-logo-design-any-corporate-brand-suitable-your-business-company-etc_1300464-373.jpg?w=2000" />
+                            <AvatarImage src={`${user?.profile?.profilePhoto}`} />
                         </Avatar>
                         <div>
                             <h1 className='font-medium text-xl'>{user?.fullName}</h1>

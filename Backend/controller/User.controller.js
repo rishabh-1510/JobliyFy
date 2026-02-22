@@ -3,6 +3,7 @@ import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 import getDataUri from "../utils/datauri.js";
+import cloudinary from "../utils/cloudinary.js";
 dotenv.config()
 export const register =async(req,res)=>{
     try{
@@ -13,6 +14,10 @@ export const register =async(req,res)=>{
                 message:"Fill all the credential properly"
             })
         };
+        const file = req.file;
+        const fileUri= getDataUri(file)
+        const cloudResponse  = await cloudinary.uploader.upload(fileUri.content)
+        console.log("uri",fileUri)
         const user =await User.findOne({email});
         if(user){   
             return res.status(400).json({
@@ -21,8 +26,17 @@ export const register =async(req,res)=>{
             })
         }
         const hashedPassword =await bcrypt.hash(password,10);
-        
-        const newUser =await User.create({fullName,email,mobileNumber,password:hashedPassword,role});
+        console.log("file res",req.file);
+        const newUser =await User.create({
+            fullName,
+            email,
+            mobileNumber,
+            password:hashedPassword,
+            role,
+            profile:{
+                profilePhoto:cloudResponse.secure_url
+            }
+            });
         
         return res.status(200).json({
             success:true,
