@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux'
 const Profile = () => {
     const {user} = useSelector((store)=>store.auth)
     const [open , setOpen] = useState(false)
-    const [isHaveResume, setIsHaveResume] = useState(true)
+    const [isHaveResume, setIsHaveResume] = useState(true);
     console.log(user);
     return (
         <div>
