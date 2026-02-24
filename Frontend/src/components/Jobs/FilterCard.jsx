@@ -25,14 +25,14 @@ const FilterCard = () => {
             <RadioGroup > 
                 {
                     filterData.map((data, index) => (
-                        <div>
+                        <div key={index}>
                             <h1 className='font-bold text-lg'>
                                 {data.filterType}
                             </h1>
                             {
                                 data.array.map((item, index) => {
                                     return (
-                                        <div className='flex gap-2.5 mb-2 mt-2 items-center space-x-2'>
+                                        <div className='flex gap-2.5 mb-2 mt-2 items-center space-x-2' key={index}>
                                             <RadioGroupItem value={item} />
                                             <Label>{item}</Label>
                                         </div>
