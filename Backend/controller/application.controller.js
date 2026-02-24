@@ -17,7 +17,7 @@ export const applyJob = async(req,res)=>{
         if(existingApplication){
             return res.status(400).json({
                 success:false,
-                message:"User Already registered"
+                message:"User Already applied"
             })
         }
         const job= await Job.findById(jobId);
@@ -36,14 +36,14 @@ export const applyJob = async(req,res)=>{
 
         return res.status(200).json({
             success:true,
-            message:"Application createed successfuly"
+            message:"Application created successfuly"
         })
 
     }catch(err){
         console.log(err);
         return res.status(400).json({
             success:false,
-            message:""
+            message:"Something went wrong"
         })
     }
 };

@@ -16,7 +16,6 @@ const Navbar = () => {
     const dispatch = useDispatch();
     
     const{user}= useSelector(store=>store.auth);
-    console.log("user is ",user)
     const logoutHandler = async()=>{
         try{
             const res = await axios.get(`${USER_API_ENDPOINT}/logout`);

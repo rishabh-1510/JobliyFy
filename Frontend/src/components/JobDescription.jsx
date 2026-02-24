@@ -1,21 +1,36 @@
+
 import React from 'react'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { useParams } from 'react-router-dom';
-import { JOB_API_ENDPOINT } from '../utils/api';
+import { JOB_API_ENDPOINT ,APPLICATION_API_ENDPOINT} from '../utils/api';
 import { setSingleJob } from '../redux/jobSlice';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { toast } from 'sonner';
 const JobDescription = () => {
-    const isApplied = true;
+    
     const params = useParams();
     const jobId = params.id;
     const {singleJob} = useSelector(store=>store.job)
-     const {user} = useSelector(store=>store.auth)
+    const {user} = useSelector(store=>store.auth)
     const dispatch = useDispatch();
+    const isApplied =singleJob?.applications?.some(application=>application?.applicant=== user?._id) || false;
+    
+    const applyNowJobHandler = async()=>{
+        try {
+            const res = await axios.post(`${APPLICATION_API_ENDPOINT}/apply/${jobId}`,{},{withCredentials:true});
+            if(res.data.success){
+                toast.success(res.data.message);
+                isApplied=true;
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error(error.response.data.message);
+        }
+    }
 
- 
     useEffect(()=>{
         const fetchSinleJob = async()=>{
             try {
@@ -45,7 +60,7 @@ const JobDescription = () => {
                     </div>
 
                 </div>
-                <Button disabled={isApplied} className={`rounded-lg ${isApplied ? 'bg-gray-600 cursor-not-allowed' :
+                <Button onClick={isApplied?(null):(applyNowJobHandler)} disabled={isApplied} className={`rounded-lg ${isApplied ? 'bg-gray-600 cursor-not-allowed' :
                     'bg-[#7209b7] hover:bg-[#5f32ad]'}`}>
                     {
                         !isApplied ? ("Apply Now") : ("Already Applied")
@@ -60,7 +75,7 @@ const JobDescription = () => {
                 <h1 className='font-bold my-1'>Experience : <span className='pl-4 font-normal text-gray-800'>{singleJob?.experienceLevel} years</span></h1>
                 <h1 className='font-bold my-1'>Salary : <span className='pl-4 font-normal text-gray-800'>{singleJob?.salary}</span></h1>
                 <h1 className='font-bold my-1'>Total Applications : <span className='pl-4 font-normal text-gray-800'>{singleJob?.applications?.length}</span></h1>
-                <h1 className='font-bold my-1'>Posted Date : <span className='pl-4 font-normal text-gray-800'>{singleJob.createdAt.split('T')[0]}</span></h1>
+                <h1 className='font-bold my-1'>Posted Date : <span className='pl-4 font-normal text-gray-800'>{singleJob?.createdAt.split('T')[0]}</span></h1>
             </div>
         </div>
     )

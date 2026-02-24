@@ -4,7 +4,7 @@ import { updateStatus,getApplicants,getAppliedJobs,applyJob } from "../controlle
 
 const Router = express.Router();
 
-Router.post("/apply/:id",auth ,applyJob);
+Router.post("/apply/:id",auth,applyJob);
 Router.get("/getAppliedjobs",auth,getAppliedJobs);
 Router.get("/:id/applicants",auth,getApplicants );
 Router.post("/status/:id/update",auth,updateStatus);
