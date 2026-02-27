@@ -1,9 +1,10 @@
 import React from 'react'
 import Navbar from '../components/shared/Navbar'
 import Job from '../components/Jobs/Job'
+import { useSelector } from 'react-redux'
 const randomJobs = [1, 2, 3]
 
-
+    
 const Browse = () => {
     return (
         <div>

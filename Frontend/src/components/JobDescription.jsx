@@ -1,5 +1,5 @@
-
-import React from 'react'
+//8:45
+import React, { useState } from 'react'
 import { Badge } from './ui/badge'
 import { Button } from './ui/button'
 import { useParams } from 'react-router-dom';
@@ -16,14 +16,16 @@ const JobDescription = () => {
     const {singleJob} = useSelector(store=>store.job)
     const {user} = useSelector(store=>store.auth)
     const dispatch = useDispatch();
-    const isApplied =singleJob?.applications?.some(application=>application?.applicant=== user?._id) || false;
-    
+    const isInitiallyApplied =singleJob?.applications?.some(application=>application?.applicant=== user?._id) || false;
+    const[isApplied,setIsApplied] = useState(isInitiallyApplied);
     const applyNowJobHandler = async()=>{
         try {
             const res = await axios.post(`${APPLICATION_API_ENDPOINT}/apply/${jobId}`,{},{withCredentials:true});
             if(res.data.success){
                 toast.success(res.data.message);
-                isApplied=true;
+                const updateSingleJob = {...singleJob , applications:[...singleJob.applications,{applicant:user?._id}]}
+                dispatch(setSingleJob(updateSingleJob)); // realtime ui update
+                setIsApplied(true);
             }
         } catch (error) {
             console.log(error);

@@ -8,7 +8,7 @@ import { Badge } from '../ui/badge'
 import { useNavigate } from 'react-router-dom'
 const Job = ({job}) => {
     const navigate=useNavigate();
-    const jobId=job._id
+    const jobId=job._id;
     const daysAgoFunction= (mongodbTime)=>{
         const createdAt = new Date(mongodbTime);
         const currentTime = new Date();
