@@ -1,4 +1,4 @@
-//9:53
+//10:38
 import React, { useEffect } from 'react'
 import Navbar from '../shared/Navbar'
 import { Button } from '../ui/button'
@@ -11,11 +11,14 @@ import { COMPANIES_API_ENDPONTS } from "../../utils/api";
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import store from '../../redux/store'
+import useGetCompanyById from '../../hooks/useGetCompanyById';
+
 import { useSelector } from 'react-redux'
 const CompanySetup = () => {
+    const params = useParams();
+    useGetCompanyById(params.id)    
     const { singleCompany } = useSelector(store => store.company)
     const navigate = useNavigate();
-    const params = useParams();
     const [loading, setLoading] = useState(false);
     const [input, setInput] = useState({
         name: "",
@@ -65,7 +68,7 @@ const CompanySetup = () => {
             location: singleCompany.location || "",
             file: singleCompany.file || null,
         })
-    },[])
+    },[singleCompany])
     return (
         <div>
             <Navbar />

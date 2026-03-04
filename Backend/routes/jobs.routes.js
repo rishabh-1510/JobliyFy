@@ -7,6 +7,6 @@ const Router = express.Router()
 Router.post("/postJob",auth,isRecruiter,postJob);
 Router.get("/getAllJobs",auth,getAllJobs);
 Router.get("/getJobById/:id",auth,getJobById);
-Router.get("/getAdminJobs/:id",auth,getAdminJobs);
+Router.get("/getAdminJobs",auth,getAdminJobs);
 
 export default Router;
