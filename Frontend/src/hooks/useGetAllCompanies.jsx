@@ -11,7 +11,7 @@ const useGetAllCompanies = () => {
         const fetchCompanies = async () => {
             try {
                 const res = await axios.get(
-                    `${COMPANIES_API_ENDPOINT}/getcompanies`,
+                    `${COMPANIES_API_ENDPONTS}/getcompanies`,
                     { withCredentials: true }
                 );
 
