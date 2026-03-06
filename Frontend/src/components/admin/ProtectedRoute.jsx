@@ -2,11 +2,11 @@ import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useSelector((store) => store.auth);
+  const { user, loading } = useSelector((store) => store.auth);
 
-  if (!user) return <Navigate to="/" replace />;
+  if (loading) return null; // wait until auth finishes
 
-  if (user.role !== "recruiter") {
+  if (!user || user.role !== "recruiter") {
     return <Navigate to="/" replace />;
   }
 
