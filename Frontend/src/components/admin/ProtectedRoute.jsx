@@ -1,13 +1,16 @@
-import { Navigate } from "react-router-dom";
-import useAuth from "../../hooks/useAuth";
-
+import { useSelector } from "react-redux";
+import { Navigate, useLocation } from "react-router-dom";
+import store from "../../redux/store";
 const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useAuth();
-
-  if (loading) return <div>Loading...</div>;
+  const { user } = useSelector((store) => store.auth);
+  const location = useLocation();
 
   if (!user || user.role !== "recruiter") {
-    return <Navigate to="/" replace />;
+    // prevent redirect loop
+    if (location.pathname !== "/login") {
+      return <Navigate to="/login" replace />;
+    }
+    return null;
   }
 
   return children;
