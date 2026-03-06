@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { COMPANIES_API_ENDPOINT } from "../utils/api";
+import { COMPANIES_API_ENDPONTS} from "../utils/api";
 import { useDispatch } from "react-redux";
 import { setCompanies } from "../redux/companySlice";
 
