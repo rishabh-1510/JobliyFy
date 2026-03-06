@@ -55,7 +55,7 @@ const Login = () => {
     if(user){
       navigate('/')
     }
-  },[])
+  },[user])
   return (
     <>
       <div className='text-2xl font-bold '>

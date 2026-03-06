@@ -18,7 +18,9 @@ const Navbar = () => {
     const { user } = useSelector(store => store.auth);
     const logoutHandler = async () => {
         try {
-            const res = await axios.get(`${USER_API_ENDPOINT}/logout`);
+            const res = await axios.get(`${USER_API_ENDPOINT}/logout`,{
+                withCredentials:true
+            });
             if (res.data.success) {
                 dispatch(setUser(null));
                 navigate("/");

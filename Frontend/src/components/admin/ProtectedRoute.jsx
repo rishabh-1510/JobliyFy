@@ -1,7 +1,17 @@
 import { useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
-import store from "../../redux/store";
+import { Navigate } from "react-router-dom";
+
 const ProtectedRoute = ({ children }) => {
+  const { user } = useSelector((store) => store.auth);
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (user.role !== "Recruiter") {
+    return <Navigate to="/" replace />;
+  }
+
   return children;
 };
 
