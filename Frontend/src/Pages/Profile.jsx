@@ -19,7 +19,7 @@ const Profile = () => {
     const {user} = useSelector((store)=>store.auth);
     const [open , setOpen] = useState(false);
     const [isHaveResume, setIsHaveResume] = useState(true);
-
+    
     return (
         <div>
             <Navbar />
@@ -47,7 +47,7 @@ const Profile = () => {
                     </div>
                     <div className='flex items-center gap-3 my-2'>
                         <Contact />
-                        <span>{user?.phoneNumber}</span>
+                        <span>{user?.mobileNumber}</span>
 
                     </div>
                 </div>
