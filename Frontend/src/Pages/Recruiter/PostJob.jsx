@@ -39,7 +39,7 @@ const PostJob = () => {
         e.preventDefault();
         try {
             setLoading(true);
-            console.log('input is ',input )
+           
             const res = await axios.post(`${JOB_API_ENDPOINT}/postJob`, input, {
                 withCredentials: true
             });
