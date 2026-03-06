@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/shared/Navbar'
 import { Label } from '../components/ui/label'
 import { Input } from '../components/ui/input'
@@ -16,7 +16,8 @@ import { Loader2 } from 'lucide-react'
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { loading } = useSelector(store => store.auth)
+  
+  const { user,loading } = useSelector(store => store.auth)
   const [input, setinput] = useState({
     email: "",
     password: "",
@@ -50,6 +51,11 @@ const Login = () => {
       dispatch(setLoading(false));
     }
   }
+  useEffect(()=>{
+    if(user){
+      navigate('/')
+    }
+  },[])
   return (
     <>
       <div className='text-2xl font-bold '>

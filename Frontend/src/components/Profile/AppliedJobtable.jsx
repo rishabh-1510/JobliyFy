@@ -38,7 +38,7 @@ const AppliedJobtable = () => {
               <TableCell>{appliedJob?.job?.company?.name}</TableCell>
               <TableCell className="text-right">
                 <Badge className={statusStyle[appliedJob.status]}>
-                  {appliedJob.status}
+                  {appliedJob.status.toUpperCase()}
                 </Badge>
               </TableCell>
             </TableRow>

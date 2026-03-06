@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
 import { Label } from '../ui/label'
+import { useDispatch } from 'react-redux'
+import { setSearchQuery } from '../../redux/jobSlice'
 const filterData = [
     {
         filterType: "Location",
@@ -9,20 +11,24 @@ const filterData = [
     {
         filterType: "Industry",
         array: ["Frontend Developer", "Backend Developer", "FullStack Developer"]
-    },
-    {
-        filterType: "Salary",
-        array: ["0-40k", "41k-1lakh", "1lakh-5lakh"]
-    },
+    }
 ]
 
 
 const FilterCard = () => {
+    const [selectedValue , setSelectedValue] = useState('');
+    const dispatch = useDispatch();
+    const changeHandler = (value) =>{
+        setSelectedValue(value)
+    }
+    useEffect(()=>{ 
+        dispatch(setSearchQuery(selectedValue));
+    },[selectedValue]); 
     return (
         <div className='w-full bg-white p-3 rounded-md'>
             <h1 className='font-bold text-lg'>Filter Jobs</h1>
             <hr className='mt-3' />
-            <RadioGroup > 
+            <RadioGroup value={selectedValue} onValueChange={changeHandler}> 
                 {
                     filterData.map((data, index) => (
                         <div key={index}>
@@ -30,11 +36,12 @@ const FilterCard = () => {
                                 {data.filterType}
                             </h1>
                             {
-                                data.array.map((item, index) => {
+                                data.array.map((item, indx) => {
+                                    const itemId = `r${index}-${indx}` 
                                     return (
-                                        <div className='flex gap-2.5 mb-2 mt-2 items-center space-x-2' key={index}>
-                                            <RadioGroupItem value={item} />
-                                            <Label>{item}</Label>
+                                        <div className='flex gap-2.5 mb-2 mt-2 items-center space-x-2' key={indx}>
+                                            <RadioGroupItem value={item}  id={itemId}/>
+                                            <Label htmlFor={itemId}>{item}</Label>
                                         </div>
                                     )
                                 })

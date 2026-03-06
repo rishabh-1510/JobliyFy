@@ -62,7 +62,7 @@ const UpdateProfileDialog = ({ open, setOpen }) => {
     const file = e.target.files?.[0];
     setInput({...input,file})
   } 
-  console.log(input)
+
   return (
     <Dialog open={open}>
       <DialogContent className={'sm:max-w-[425px] '} onInteractOutside={() => setOpen(false)}>

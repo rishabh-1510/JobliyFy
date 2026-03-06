@@ -8,7 +8,7 @@ import { Badge } from '../ui/badge'
 import { useNavigate } from 'react-router-dom'
 const Job = ({job}) => {
     const navigate=useNavigate();
-    const jobId=job._id;
+    const jobId=job?._id;
     const daysAgoFunction= (mongodbTime)=>{
         const createdAt = new Date(mongodbTime);
         const currentTime = new Date();
@@ -25,7 +25,7 @@ const Job = ({job}) => {
             <div className='flex items-center gap-2 my-2'>
                 <Button className='p-6' variant='outline' size='icon'>
                     <Avatar>
-                        <AvatarImage src={`${job?.company.logo}`}/>
+                        <AvatarImage src={`${job?.company?.logo}`}/>
                     </Avatar>
                 </Button>
                 <div>
@@ -41,7 +41,7 @@ const Job = ({job}) => {
             <div className='flex items-center gap-2 mt-4'>
                 <Badge className={'text-blue-500 font-bold'} variant='ghost'>{job?.position} Positions</Badge>
                 <Badge className={'text-[#f83002] font-bold'} variant='ghost'>{job?.jobType}</Badge>
-                <Badge className={'text-[#7209b7] font-bold'} variant='ghost'>{job?.salary}</Badge>
+                <Badge className={'text-[#7209b7] font-bold'} variant='ghost'>{job?.salary}LPA</Badge>
             </div>
             <div className='flex items-center gap-4 mt-4'>
                 <Button variant='outline' onClick={()=>navigate(`/description/${jobId}`)}>
