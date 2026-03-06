@@ -1,5 +1,6 @@
+const BASE_URL = import.meta.env.BASE_URL;
 
-export const USER_API_ENDPOINT= "http://localhost:4000/api/v1/user"
-export const JOB_API_ENDPOINT= "http://localhost:4000/api/v1/job"
-export const APPLICATION_API_ENDPOINT= "http://localhost:4000/api/v1/application"
-export const COMPANIES_API_ENDPONTS = "http://localhost:4000/api/v1/company"
+export const USER_API_ENDPOINT = `${BASE_URL}/api/v1/user`;
+export const JOB_API_ENDPOINT = `${BASE_URL}/api/v1/job`;
+export const APPLICATION_API_ENDPOINT = `${BASE_URL}/api/v1/application`;
+export const COMPANIES_API_ENDPOINT = `${BASE_URL}/api/v1/company`;
