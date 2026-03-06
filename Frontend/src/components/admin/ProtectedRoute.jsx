@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 const ProtectedRoute = ({ children }) => {
-  const { user, loading } = useSelector((store) => store.auth);
+  const { user, loading } = useAuth();
 
-  if (loading) return null; // wait until auth finishes
+  if (loading) return <div>Loading...</div>;
 
   if (!user || user.role !== "recruiter") {
     return <Navigate to="/" replace />;
