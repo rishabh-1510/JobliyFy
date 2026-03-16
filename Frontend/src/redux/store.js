@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import authSlice from "./authSlice"
 import jobSlice from './jobSlice'
+
 import { createRoot } from 'react-dom/client'
 import companySlice from './companySlice'
 import {
@@ -42,3 +43,4 @@ const store = configureStore({
         }),
 });
 export default store;
+export const persistor = persistStore(store);
