@@ -10,7 +10,9 @@ import store from '../../redux/store'
 import { toast } from 'sonner'
 import axios from 'axios'
 import { USER_API_ENDPOINT } from '../../utils/api'
-import { setUser } from '../../redux/authSlice'
+import { setUser, logout } from '../../redux/authSlice';
+import { persistor } from "../redux/store";
+
 const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -18,13 +20,16 @@ const Navbar = () => {
     const { user } = useSelector(store => store.auth);
     const logoutHandler = async () => {
         try {
-            const res = await axios.get(`${USER_API_ENDPOINT}/logout`,{
-                withCredentials:true
+            const res = await axios.get(`${USER_API_ENDPOINT}/logout`, {
+                withCredentials: true
             });
             if (res.data.success) {
                 dispatch(setUser(null));
                 navigate("/");
-                toast.success(res.data.message)
+                dispatch(logout());
+                persistor.purge();
+                toast.success(res.data.message);
+
             }
         } catch (err) {
             console.log(err);
