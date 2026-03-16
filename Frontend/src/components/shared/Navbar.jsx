@@ -25,7 +25,7 @@ const Navbar = () => {
             });
             if (res.data.success) {
                 dispatch(setUser(null));
-                navigate("/");
+                navigate("/login");
                 dispatch(logout());
                 persistor.purge();
                 toast.success(res.data.message);
