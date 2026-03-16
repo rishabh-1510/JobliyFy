@@ -11,7 +11,7 @@ import { toast } from 'sonner'
 import axios from 'axios'
 import { USER_API_ENDPOINT } from '../../utils/api'
 import { setUser, logout } from '../../redux/authSlice';
-import { persistor } from "../redux/store";
+import { persistor } from "../../redux/store";
 
 const Navbar = () => {
     const navigate = useNavigate();
