@@ -25,7 +25,6 @@ const Login = () => {
   })
   const changeEventhandler = (event) => {
     setinput({ ...input, [event.target.name]: event.target.value })
-    event.preventDefault();
   }
   const submitHandler = async (e) => {
     e.preventDefault();
