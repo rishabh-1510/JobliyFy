@@ -10,3 +10,4 @@ Router.post("/login",login);
 Router.post("/profile/update", auth,singleUpload,updateProfile)
 Router.get("/logout",logout);
 export default Router;
+ 
